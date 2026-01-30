@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>FC Mobile Pro League</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ===== ADD: jsPDF ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="stylesheet" href="graphics.css">
+</head>
+<!-- ===== END SEASON CELEBRATION ===== -->
+<div id="endSeasonOverlay" class="end-season-overlay">
+  <div class="champion-box">
+    <img id="championLogo" class="champion-logo">
+    <h1 id="championName"></h1>
+    <h2 id="championTitle"></h2>
+    <div class="trophy-drop"><img 
+  src="d27e75ad-0ae0-4080-ab6d-77a8acf59c5a-md-removebg-preview.png"
+  style="
+    width:220px;
+    filter:
+      drop-shadow(0 0 25px gold)
+      drop-shadow(0 0 60px #facc15);
+  "
+>
+
+</div>
+    <canvas id="fireworks"></canvas>
+    <button onclick="closeEndSeason()">Đóng</button>
+  </div>
+</div>
+<audio id="championMusic" preload="auto">
+ <source src="champion.mp3" type="audio/mpeg">
+</audio>
+
+<body>
+    
+<div id="zoomModal" class="zoom-modal">
+ <img id="zoomImg">
+</div>
+
+<header class="main-header">
+ <div class="header-left">
+  <button class="theme-btn" onclick="toggleTheme()">🌓</button>
+ </div>
+
+ <div class="header-center">
+  <h2>⚽ FC Mobile Pro League</h2>
+  <span><img src="ChatGPT Image Jan 29, 2026, 10_31_30 AM.png"   class="zoomable"
+     onclick="openZoom(this.src)"></span>
+ </div>
+
+ <div class="header-right">
+  <select id="seasonSelect"></select>
+  <button onclick="newSeason()">+ Mùa mới</button>
+  <button class="danger" onclick="deleteSeason()">Xóa mùa</button>
+ </div>
+</header>
+
+
+<div class="container">
+
+<div class="card">
+<h3>👥 Người chơi</h3>
+<div class="players" id="players"></div>
+</div>
+
+<div class="card">
+<h3>✍️ Nhập kết quả trận đấu</h3>
+<select id="p1"></select>
+<input id="g1" type="number" placeholder="Bàn A">
+<select id="p2"></select>
+<input id="g2" type="number" placeholder="Bàn B">
+<br><br>
+<button onclick="addMatch()">Lưu trận</button>
+</div>
+
+<div class="card" id="tableCard">
+<h3>📊 Bảng xếp hạng</h3>
+<button onclick="exportPDF()">Xuất PDF</button>
+<table>
+<thead>
+<tr>
+ <th>#</th>
+ <th>CLB</th>
+ <th>MP</th>
+ <th>W</th>
+ <th>D</th>
+ <th>L</th>
+ <th>GF</th>
+ <th>GA</th>
+ <th>GD</th>
+ <th>PTS</th>
+</tr>
+</thead>
+<button onclick="endSeason()">🏁 Kết thúc mùa</button>
+
+<tbody id="table"></tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>📈 Biểu đồ bàn thắng</h3>
+<canvas id="goalChart"></canvas>
+</div>
+
+<div class="card">
+<h3>📊 Biểu đồ phong độ theo mùa</h3>
+
+<select id="formPlayerSelect"></select>
+<button onclick="showFormChart()">Xem biểu đồ</button>
+
+<canvas id="formChart" height="120"></canvas>
+</div>
+
+<div class="card">
+<h3>👤 Thống kê chi tiết theo mùa</h3>
+
+<select id="playerHistorySelect"></select>
+<button onclick="showPlayerSeasonHistory()">Xem thống kê</button>
+
+<div id="playerSeasonHistory" class="section"></div>
+</div>
+
+<div class="card">
+<h3>👤 Hồ sơ người chơi</h3>
+
+<select id="profilePlayerSelect"></select>
+<button onclick="openPlayerProfile()">Xem hồ sơ</button>
+
+</div>
+
+
+<!-- ===== ADD: GLOBAL TITLES UI ===== -->
+<hr style="border:1px solid var(--line);margin:18px 0">
+<h4 style="color:var(--gold)">🏆 Danh hiệu toàn giải</h4>
+<div id="globalTitles" class="section"></div>
+
+</div>
+
+</div>
+
+<!-- ===== CLUB PROFILE MODAL ===== -->
+<div class="modal" id="clubModal">
+ <div class="box">
+  <h3 id="clubName"></h3>
+  <div id="clubInfo" class="section"></div>
+  <br>
+  <button onclick="clubModal.style.display='none'">Đóng</button>
+ </div>
+</div>
+
+<script src="source.js"></script>
+</body>
+</html>
