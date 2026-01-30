@@ -1,7 +1,8 @@
 const p1 = document.getElementById("p1");
 const p2 = document.getElementById("p2");
 
-const API_URL = "http://localhost:5001/api";
+// const API_URL = "http://localhost:5001/api";
+const API_URL = "https://bxhbongda.onrender.com";
 
 let navigating = false;
 let awardHistory =
