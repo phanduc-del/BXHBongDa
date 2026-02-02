@@ -1,8 +1,8 @@
 const p1 = document.getElementById("p1");
 const p2 = document.getElementById("p2");
 
-// const API_URL = "http://localhost:5001/api";
-const API_URL = "https://bxhbongda.onrender.com";
+const API_URL = "http://localhost:5001/api";
+// const API_URL = "https://bxhbongda.onrender.com";
 
 let navigating = false;
 let awardHistory =
@@ -83,6 +83,23 @@ async function newSeason(init=false){
  await save();
 
  if(!init) renderAll();
+}
+function getTotalGoalsAllSeasons() {
+  const totalGoals = {};
+
+  seasons.forEach(season => {
+    season.players.forEach(player => {
+      if (!totalGoals[player.name]) {
+        totalGoals[player.name] = 0;
+      }
+      totalGoals[player.name] += player.gf;
+    });
+  });
+
+  return Object.keys(totalGoals).map(name => ({
+    name,
+    gf: totalGoals[name]
+  }));
 }
 
 
@@ -184,7 +201,7 @@ return `
 
 }).join("");
 
- renderChart(s.players);
+ renderChart(getTotalGoalsAllSeasons());
   afterRender();
 }
 
@@ -209,16 +226,20 @@ function addMatch(){
 
 let chart;
 function renderChart(players){
-
  if(chart) chart.destroy();
- chart=new Chart(goalChart,{
+
+ chart = new Chart(goalChart,{
   type:"bar",
   data:{
-   labels:players.map(p=>p.name),
-   datasets:[{data:players.map(p=>p.gf)}]
+   labels: players.map(p => p.name),
+   datasets:[{
+     label: "Tổng bàn thắng (tất cả mùa)",
+     data: players.map(p => p.gf)
+   }]
   }
  });
 }
+
 /* ===== ADD: FORM CHART BY SEASON ===== */
 
 let formChart;
