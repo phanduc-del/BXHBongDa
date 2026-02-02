@@ -169,7 +169,7 @@ select,input{
 
 /* Top 4 – C1 */
 tr.top4 td:first-child{
- color:#22c55e;
+ color:#338eca;
  font-weight:800;
 }
 
@@ -270,7 +270,7 @@ body.light tr.top4{
  cursor:pointer;
 }
 tr.top4{
- border-left:4px solid #22c55e;
+ border-left:4px solid #50a6ed;
 }
 tr.relegation{
  border-left:4px solid #ef4444;

@@ -600,9 +600,12 @@ clubInfo.innerHTML=`
  </span>
 `;
 let title =
- st.coef>= 10 ? "🔥 Huyền thoại" :
- st.coef>=3 ? "⭐ Trụ cột" :
- "📈 Tiềm năng";
+ st.coef>= 25 ? "👑 Đại cao thủ " :
+ st.coef>= 20 ? "🏆 Cao thủ " :
+ st.coef>= 15 ? "🔥 Siêu sao" :
+ st.coef>=10 ? "⭐ Huyền thoại" :
+ st.coef >= 5 ? "🎯 Chuyên nghiệp" :
+ "🥲  Nghiệp dư";
 
 clubInfo.innerHTML += `
  <div style="
