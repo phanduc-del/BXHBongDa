@@ -125,11 +125,20 @@ seasonSelect.onchange=()=>{
 function render(){
  const s=seasons[current];
 
- players.innerHTML=s.players.map(p=>`
+ players.innerHTML = s.players.map(p => {
+ const cups = getChampionCount(p.name);
+
+ return `
  <div class="club" onclick="showClubProfile('${p.name}')">
   <img src="${avatars[p.name]}">
-  <div>${p.name}</div>
- </div>`).join("");
+  <div style="display:flex;align-items:center;gap:6px">
+   <span>${p.name}</span>
+   ${cups > 0 ? `<span class="cup-badge">🏆 ${cups}</span>` : ""}
+  </div>
+ </div>
+ `;
+}).join("");
+
 
  [p1,p2].forEach(sel=>{
   sel.innerHTML=s.players.map(p=>`<option>${p.name}</option>`).join("");
@@ -478,8 +487,7 @@ function calcGlobalTitles(){
  👑 Vua phá lưới: ${arr.sort((a,b)=>b[1].gf-a[1].gf)[0][0]}<br>
  🏆 Top danh hiệu: ${max("cup")[0]} (${max("cup")[1].cup})<br>
  🥈 Vua về nhì: ${max("s2")[0]}<br>
- 🥉 Vua về ba: ${max("s3")[0]}<br>
- 💀 Vua bét bảng: ${max("last")[0]}<br>
+ 💀 Thành tích tệ nhất: ${max("last")[0]}<br>
  🧤 Thủng lưới ít nhất: ${arr.sort((a,b)=>a[1].ga-b[1].ga)[0][0]}<br>
  🕳️ Thủng lưới nhiều nhất: ${arr.sort((a,b)=>b[1].ga-a[1].ga)[0][0]}
  <hr style="border:1px dashed var(--line);margin:8px 0">
@@ -592,8 +600,8 @@ clubInfo.innerHTML=`
  </span>
 `;
 let title =
- st.coef>=3 ? "🔥 Huyền thoại" :
- st.coef>=2 ? "⭐ Trụ cột" :
+ st.coef>= 10 ? "🔥 Huyền thoại" :
+ st.coef>=3 ? "⭐ Trụ cột" :
  "📈 Tiềm năng";
 
 clubInfo.innerHTML += `
